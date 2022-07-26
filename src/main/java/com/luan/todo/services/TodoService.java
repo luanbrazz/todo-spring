@@ -2,8 +2,8 @@ package com.luan.todo.services;
 
 import com.luan.todo.domain.Todo;
 import com.luan.todo.repositories.TodoRepository;
+import com.luan.todo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -17,7 +17,9 @@ public class TodoService {
 
     public Todo findById(Integer id){
         Optional<Todo> obj = repository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Todo.class.getName())
+        );
     }
 
     public List<Todo> findAllOpen() {
