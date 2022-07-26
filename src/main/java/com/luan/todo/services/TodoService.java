@@ -3,7 +3,9 @@ package com.luan.todo.services;
 import com.luan.todo.domain.Todo;
 import com.luan.todo.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,12 @@ public class TodoService {
 
     public List<Todo> findAllClose() {
         List<Todo> list = repository.finAllClose();
+        return list;
+    }
+
+    @GetMapping
+    public List<Todo> findAll() {
+        List<Todo> list = repository.findAll();
         return list;
     }
 }
